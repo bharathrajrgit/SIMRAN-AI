@@ -1,0 +1,6 @@
+{
+  "name": "SIMRAN AI",
+  "description": "A Perplexity-style security intelligence tool to analyze files, URLs, domains, IPs, hashes, and image exposures with detailed threat summaries.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
