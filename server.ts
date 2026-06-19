@@ -33,6 +33,44 @@ function getGeminiClient(): GoogleGenAI {
   return aiClient;
 }
 
+// Robust wrapper to call Gemini API with exponential backoff on retry, and fallback model if overloaded.
+async function callGeminiWithFallbackAndRetry(params: any, retries = 3, delayMs = 1000): Promise<any> {
+  const ai = getGeminiClient();
+  let latestError: any = null;
+  
+  // Try the requested model first, then fallback to gemini-2.5-flash and gemini-1.5-flash which have extensive capacity
+  const modelsToTry = [params.model, 'gemini-2.5-flash', 'gemini-1.5-flash'].filter(Boolean);
+
+  for (const model of modelsToTry) {
+    const currentParams = { ...params, model };
+    for (let attempt = 0; attempt < retries; attempt++) {
+      try {
+        const response = await ai.models.generateContent(currentParams);
+        return response;
+      } catch (err: any) {
+        latestError = err;
+        console.warn(`[Gemini API] Attempt ${attempt + 1} with model "${model}" failed: ${err.message || err}`);
+        
+        const errStr = String(err.message || '').toLowerCase();
+        const isTransient = errStr.includes('503') || 
+                            errStr.includes('unavailable') || 
+                            errStr.includes('demand') || 
+                            errStr.includes('rate limit') ||
+                            errStr.includes('429');
+        
+        if (isTransient && attempt < retries - 1) {
+          // Wait before retrying with exponential backoff
+          await new Promise((resolve) => setTimeout(resolve, delayMs * Math.pow(2, attempt)));
+        } else {
+          // Break to next model try if not transient or if reached max retries for current model
+          break;
+        }
+      }
+    }
+  }
+  throw latestError || new Error('All Gemini generation attempts failed.');
+}
+
 // Simple regex classification helpers
 function isIpAddress(str: string): boolean {
   const clean = str.trim();
@@ -142,7 +180,7 @@ Scanning background: ${vtContext}
 `;
 
   try {
-    const response = await ai.models.generateContent({
+    const response = await callGeminiWithFallbackAndRetry({
       model: 'gemini-3.5-flash',
       contents: `Provide a security risk report for this ${type} target: "${value}".`,
       config: {
@@ -230,7 +268,7 @@ Name: ${imageName}
       },
     };
 
-    const response = await ai.models.generateContent({
+    const response = await callGeminiWithFallbackAndRetry({
       model: 'gemini-3.5-flash',
       contents: [
         imagePart,
@@ -328,8 +366,7 @@ app.post('/api/analyze', async (req, res) => {
 
     // Handle general conversational chats that do not call for precise security sweeps
     if (finalType === 'general_chat') {
-      const ai = getGeminiClient();
-      const chatResponse = await ai.models.generateContent({
+      const chatResponse = await callGeminiWithFallbackAndRetry({
         model: 'gemini-3.5-flash',
         contents: finalValue || 'Tell me about what you can do',
         config: {
@@ -369,8 +406,7 @@ app.post('/api/analyze', async (req, res) => {
       // For general file binaries, we profile the file visual fingerprint & name securely
       const fileBase64 = fileData || '';
       // We leverage the Gemini AI engine to inspect details of the file headers when possible, mock integrity signatures
-      const ai = getGeminiClient();
-      const response = await ai.models.generateContent({
+      const response = await callGeminiWithFallbackAndRetry({
         model: 'gemini-3.5-flash',
         contents: `Inspect static payload and header features for file parameters: Name: ${fileName || 'unnamed_file'}, length limit metrics. Base64 payload exists: ${fileBase64 ? 'Yes' : 'No'}.`,
         config: {
