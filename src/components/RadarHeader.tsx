@@ -40,14 +40,14 @@ export default function RadarHeader() {
         <div className="w-10 h-10 rounded-xl overflow-hidden shadow-md shadow-indigo-150 transform transition hover:scale-105 border border-slate-200/65 flex-shrink-0">
           <img 
             src="/src/assets/images/security_logo_1781452802058.jpg" 
-            alt="SIMRAN AI Radar Logo" 
+            alt="Backspace AI Radar Logo" 
             className="w-full h-full object-cover"
             referrerPolicy="no-referrer"
           />
         </div>
         <div>
           <h1 className="text-lg md:text-xl font-display font-bold tracking-tight text-slate-900 flex items-center gap-2">
-            SIMRAN<span className="text-indigo-600 font-semibold">AI</span>
+            Backspace<span className="text-indigo-600 font-semibold">AI</span>
             <span className="text-[10px] uppercase font-mono tracking-widest bg-indigo-50 text-indigo-700 border border-indigo-200/60 px-2 py-0.5 rounded-full font-bold ml-1">
               Active Radar v3.5
             </span>

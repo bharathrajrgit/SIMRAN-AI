@@ -430,7 +430,7 @@ export default function App() {
   // Simulated Social Sharing
   const handleShareThread = (val: string) => {
     const randomizedId = Math.random().toString(36).substring(2, 8).toUpperCase();
-    setActiveShareUrl(`https://simran-ai.security-gateway.run/share/threat-VT-${randomizedId}`);
+    setActiveShareUrl(`https://backspace-ai.security-gateway.run/share/threat-VT-${randomizedId}`);
     setShowShareModal(true);
   };
 
@@ -548,7 +548,7 @@ export default function App() {
             <div className="flex gap-2.5 text-indigo-950">
               <Activity className="w-5 h-5 text-indigo-650 shrink-0 mt-0.5" />
               <div>
-                <p className="font-bold text-slate-900 font-display">What is SIMRAN AI?</p>
+                <p className="font-bold text-slate-900 font-display">What is Backspace AI?</p>
                 <p className="text-slate-650 mt-1.5 leading-relaxed text-xs sm:text-sm">
                   An advanced threat intelligence engine. Submit file binaries, hashes, networks, or write security prompts to query interactive diagnostics and sources.
                 </p>
@@ -669,13 +669,13 @@ export default function App() {
                 <div className="w-16 h-16 rounded-2xl overflow-hidden shadow-xl shadow-indigo-150 mx-auto transform hover:scale-105 transition-transform border border-slate-200/60">
                   <img 
                     src="/src/assets/images/security_logo_1781452802058.jpg" 
-                    alt="SIMRAN AI Logo" 
+                    alt="Backspace AI Logo" 
                     className="w-full h-full object-cover"
                     referrerPolicy="no-referrer"
                   />
                 </div>
                 <h1 className="text-3xl md:text-4xl font-black text-slate-900 font-display tracking-tight">
-                  SIMRAN Security <span className="text-indigo-600 font-extrabold uppercase font-mono bg-indigo-50/70 border border-indigo-100 px-3 py-1 rounded-xl text-xl">AI</span>
+                  Backspace Security <span className="text-indigo-600 font-extrabold uppercase font-mono bg-indigo-50/70 border border-indigo-100 px-3 py-1 rounded-xl text-xl">AI</span>
                 </h1>
                 <p className="text-slate-600 text-sm sm:text-base font-medium max-w-lg mx-auto">
                   What indicators, signatures, file binaries, or security topics do you want to inspect today?
@@ -832,13 +832,13 @@ export default function App() {
                     <ArrowLeft className="w-5 h-5" />
                   </button>
                   <span className="text-sm font-bold text-slate-500 uppercase tracking-wider font-display">Active Search Thread</span>
-                  <span className="text-xs text-slate-400 font-mono hidden sm:inline">&bull; Case ID: SIM-{messages.length}</span>
+                  <span className="text-xs text-slate-400 font-mono hidden sm:inline">&bull; Case ID: BK-{messages.length}</span>
                 </div>
                 
                 {/* Visual statistics badge */}
                 <div className="flex items-center gap-2">
                   <div className="px-3 py-1 bg-indigo-50 border border-indigo-150 text-indigo-700 text-xs font-mono rounded-lg font-bold">
-                    SIMRAN Security RADAR API
+                    Backspace Security RADAR API
                   </div>
                 </div>
               </div>
@@ -856,7 +856,7 @@ export default function App() {
                           <div className="w-10 h-10 rounded-xl overflow-hidden shadow-md shrink-0 select-none border border-slate-200/50">
                             <img 
                               src="/src/assets/images/security_logo_1781452802058.jpg" 
-                              alt="SIMRAN AI Avatar" 
+                              alt="Backspace AI Avatar" 
                               className="w-full h-full object-cover"
                               referrerPolicy="no-referrer"
                             />
@@ -1117,7 +1117,7 @@ export default function App() {
                       <div className="w-10 h-10 rounded-xl overflow-hidden shadow-md shrink-0 select-none border border-slate-200/50">
                         <img 
                           src="/src/assets/images/security_logo_1781452802058.jpg" 
-                          alt="SIMRAN AI Loader" 
+                          alt="Backspace AI Loader" 
                           className="w-full h-full object-cover"
                           referrerPolicy="no-referrer"
                         />
@@ -1126,7 +1126,7 @@ export default function App() {
                         <div className="flex items-center gap-2">
                           <RefreshCw className="w-4.5 h-4.5 text-indigo-600 animate-spin" />
                           <span className="text-sm font-bold text-indigo-600 uppercase tracking-widest animate-pulse">
-                            SIMRAN intelligence radar polling...
+                            Backspace intelligence radar polling...
                           </span>
                         </div>
                         <div className="space-y-2.5">
@@ -1284,7 +1284,7 @@ export default function App() {
         <div className="flex items-center gap-4 flex-wrap overflow-hidden">
           <span className="text-slate-350 flex items-center gap-1.5">
             <span className="w-2 h-2 bg-emerald-500 rounded-full inline-block"></span>
-            SIMRAN AI GATEWAY: SECURE
+            BACKSPACE AI GATEWAY: SECURE
           </span>
           <span className="text-slate-800 text-xs font-extrabold hidden sm:inline">|</span>
           <span className="hidden sm:inline">COMPLIANCE INDEX: ACCREDITED</span>
@@ -1292,7 +1292,7 @@ export default function App() {
           <span className="hidden md:inline">STATIC CORRELATION TRACES: ONLINE</span>
         </div>
         <div>
-          SIMRAN CORE SECURITY SUITE v2.4.2
+          BACKSPACE CORE SECURITY SUITE v2.4.2
         </div>
       </footer>
     </div>
